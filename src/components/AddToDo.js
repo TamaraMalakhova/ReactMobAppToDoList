@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { View, StyleSheet, TextInput, Button, Alert } from 'react-native';
+import { View, StyleSheet, TextInput, Button, Alert, Keyboard } from 'react-native';
+import { AntDesign } from '@expo/vector-icons';
 import { THEME } from '../theme';
 
 export const AddToDo = ({ onSubmit }) => {
@@ -10,6 +11,7 @@ export const AddToDo = ({ onSubmit }) => {
         if (value.trim()) {
             onSubmit(value);
             setValue('');
+            Keyboard.dismiss();
         } else {
             Alert.alert('Title of doing should not be empty!');
         }
@@ -27,6 +29,9 @@ export const AddToDo = ({ onSubmit }) => {
                 autoCapitalize='none'
             />
             <Button title="Add" onPress={pressHandler} />
+            {/* <AntDesign.Button onPress={pressHandler} name={'pluscircleo'}>
+                Add
+            </AntDesign.Button> */}
         </View>
     );
 }

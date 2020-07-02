@@ -1,12 +1,33 @@
 import React, { useState } from 'react';
 import { StyleSheet, View, Alert } from 'react-native';
+import * as Font from 'expo-font';
+import { AppLoading } from 'expo';
+
 import { Navbar } from './src/components/Navbar';
 import { MainScreen } from './src/screens/MainScreen';
 import { ToDoScreen } from './src/screens/ToDoScreen';
+import { THEME } from './src/theme';
+
+async function loadApplication() {
+  await Font.loadAsync({
+    'roboto-regular': require('./assets/fonts/Roboto-Regular.ttf'),
+    'roboto-bold': require('./assets/fonts/Roboto-Bold.ttf')
+  });
+}
 
 export default function App() {
+  const [isReady, setIsReady] = useState(false);
   const [toDoId, setToDoId] = useState(null);
   const [toDos, setToDos] = useState([]);
+
+  if (!isReady) {
+    return (
+      <AppLoading
+        startAsync={loadApplication}
+        onError={err => console.log(err)}
+        onFinish={() => setIsReady(true)} />
+    );
+  }
 
   const findToDoById = (id) => toDos.find(toDo => toDo.id === id);
 
@@ -80,7 +101,7 @@ export default function App() {
 
 const styles = StyleSheet.create({
   container: {
-    paddingHorizontal: 30,
+    paddingHorizontal: THEME.PADDING_HORIZONTAL,
     paddingVertical: 20
   },
 });
