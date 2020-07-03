@@ -1,6 +1,6 @@
 import React, { useState, useContext } from 'react';
 import { StyleSheet, View, Dimensions } from 'react-native';
-import {FontAwesome, AntDesign} from '@expo/vector-icons';
+import { FontAwesome, AntDesign } from '@expo/vector-icons';
 
 import { THEME } from '../theme';
 import { AppCard } from '../components/ui/AppCard';
@@ -11,14 +11,14 @@ import { ToDoContext } from '../context/toDo/toDoContext';
 import { ScreenContext } from '../context/screen/screenContext';
 
 export const ToDoScreen = () => {
-    const {toDos, updateToDo, removeToDo} = useContext(ToDoContext);
-    const {toDoId, changeScreen} = useContext(ScreenContext);
+    const { toDos, updateToDo, removeToDo } = useContext(ToDoContext);
+    const { toDoId, changeScreen } = useContext(ScreenContext);
     const [modal, setModal] = useState(false);
 
-    const toDo = toDos.find(t=> t.id === toDoId);
+    const toDo = toDos.find(t => t.id === toDoId);
 
-    const SaveHandler = title => {
-        updateToDo(toDo.id, title);
+    const SaveHandler = async title => {
+        await updateToDo(toDo.id, title);
         setModal(false);
     }
 
@@ -65,6 +65,6 @@ const styles = StyleSheet.create({
         width: Dimensions.get('window').width > 400 ? 150 : 100
     },
     title: {
-        fontSize: 20
+        fontSize: 16
     }
 });
